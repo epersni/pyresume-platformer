@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from world import World
+from level import Level
 from player import Player
 from background import Background
 from sprite import Sprite
@@ -25,7 +25,7 @@ def main():
     display_info = pygame.display.Info()
     player = Player(display_info.current_w / 2, 500)
 
-    world = World(display_info.current_w, display_info.current_h)
+    level = Level(display_info.current_w, display_info.current_h)
 
     background = Background(800, 600)
 
@@ -38,10 +38,10 @@ def main():
         key = pygame.key.get_pressed()
         if key[pygame.K_ESCAPE]:
             running = False
-        world.update()
-        player.update(world)
+        level.update()
+        player.update(level)
         player.draw(screen)
-        world.draw(screen)
+        level.draw(screen)
         pygame.display.flip()
         clock.tick(60)
 

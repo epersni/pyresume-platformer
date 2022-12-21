@@ -3,7 +3,7 @@ import pygame
 import json
 
 
-class World:
+class Level:
     def __init__(self, level_width, level_start):
         self.frame_count = 0
         self.boxes = pygame.sprite.Group()

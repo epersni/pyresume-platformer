@@ -22,9 +22,9 @@ class Player(Sprite):
         self.jump_sound = pygame.mixer.Sound("./sounds/jump.wav")
         self.onground = False
 
-    def update(self, world):
+    def update(self, level):
         hsp = 0
-        self.onground = world.on_platform(self, 0, 1)  # self.check_collision(0,1,world)
+        self.onground = level.on_platform(self, 0, 1)  # self.check_collision(0,1,level)
         key = pygame.key.get_pressed()
         if key[pygame.K_LEFT]:
             self.facing_left = True
@@ -51,8 +51,8 @@ class Player(Sprite):
             self.jump_animation()
             self.vsp += self.gravity
 
-        self.pushed_by_platform(world)
-        self.move(hsp, self.vsp, world)
+        self.pushed_by_platform(level)
+        self.move(hsp, self.vsp, level)
 
     def walk_animation(self):
         if self.vsp != 0 and not self.onground:
@@ -72,9 +72,9 @@ class Player(Sprite):
         if self.facing_left:
             self.image = pygame.transform.flip(self.image, True, False)
 
-    def pushed_by_platform(self, world):
+    def pushed_by_platform(self, level):
         dy = 0
-        while world.on_platform(self, 0, dy):
+        while level.on_platform(self, 0, dy):
             dy += 1
         self.rect.move_ip([0, dy])
 
@@ -85,14 +85,14 @@ class Player(Sprite):
             return True
         return False
 
-    def move(self, x, y, world):
+    def move(self, x, y, level):
         dx = x
         dy = y
 
-        while world.on_platform(self, 0, dy):
+        while level.on_platform(self, 0, dy):
             dy -= numpy.sign(dy)
 
-        while world.on_platform(self, dx, dy if self.jumpspeed > 0 else 0):
+        while level.on_platform(self, dx, dy if self.jumpspeed > 0 else 0):
             dx -= numpy.sign(dx)
 
         while self.check_collision_with_wall(dx):
