@@ -1,5 +1,6 @@
 import pygame
 
+
 class Sprite(pygame.sprite.Sprite):
     def __init__(self, image, startx, starty):
         super().__init__()

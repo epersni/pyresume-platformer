@@ -3,6 +3,7 @@ from sprite import Sprite
 import math
 import pygame
 
+
 class Background:
     def __init__(self, width, height):
         self.tile_group = pygame.sprite.Group()
@@ -20,4 +21,3 @@ class Background:
 
     def draw(self, screen):
         self.tile_group.draw(screen)
-

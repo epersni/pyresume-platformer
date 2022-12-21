@@ -2,6 +2,7 @@ from box import Box
 import pygame
 import json
 
+
 class World:
     def __init__(self, level_width, level_start):
         self.frame_count = 0
@@ -29,8 +30,8 @@ class World:
 
     def update(self):
         self._move_platforms_down(self.vsp)
-        #self.frame_count += 1
-        #if self.frame_count == self.level_config["frames_per_move"]:  # TODO shall be global
+        # self.frame_count += 1
+        # if self.frame_count == self.level_config["frames_per_move"]:  # TODO shall be global
         #    self.frame_count = 0
         #    self.move_platforms_down(self.level_config["pixels_per_move"])
 
@@ -40,4 +41,3 @@ class World:
 
     def draw(self, screen):
         self.boxes.draw(screen)
-

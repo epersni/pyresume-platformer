@@ -2,6 +2,7 @@ from sprite import Sprite
 import pygame
 import numpy
 
+
 class Player(Sprite):
     def __init__(self, startx, starty):
         super().__init__("graphics/player_front.png", startx, starty)
@@ -23,9 +24,7 @@ class Player(Sprite):
 
     def update(self, world):
         hsp = 0
-        self.onground = world.on_platform(
-            self, 0, 1
-        )  # self.check_collision(0,1,world)
+        self.onground = world.on_platform(self, 0, 1)  # self.check_collision(0,1,world)
         key = pygame.key.get_pressed()
         if key[pygame.K_LEFT]:
             self.facing_left = True
@@ -51,7 +50,7 @@ class Player(Sprite):
         if self.vsp < 10 and not self.onground:
             self.jump_animation()
             self.vsp += self.gravity
-        
+
         self.pushed_by_platform(world)
         self.move(hsp, self.vsp, world)
 
@@ -100,4 +99,3 @@ class Player(Sprite):
             dx -= numpy.sign(dx)
 
         self.rect.move_ip([dx, dy])
-
