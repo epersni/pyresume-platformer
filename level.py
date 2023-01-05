@@ -41,16 +41,20 @@ class Level:
         sprite.rect.move_ip([-dx, -dy])
         return collide
 
+    def keyword_collide(self, sprite):
+        collided_keywords = []
+        for keyword in self.keywords:
+            if sprite.rect.colliderect(keyword.rect):
+                collided_keywords.append(keyword)
+                self.keywords.remove(keyword)
+        return collided_keywords
+
     def set_fall_speed(self, vsp):
         self.vsp = vsp
 
     def update(self):
         self._move_platforms_down(self.vsp)
         self._move_keywords_down(self.vsp)
-        # self.frame_count += 1
-        # if self.frame_count == self.level_config["frames_per_move"]:  # TODO shall be global
-        #    self.frame_count = 0
-        #    self.move_platforms_down(self.level_config["pixels_per_move"])
 
     def _move_platforms_down(self, pixels):
         for sprite in self.boxes.sprites():

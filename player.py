@@ -51,8 +51,6 @@ class Player(Sprite):
 
     def update(self, level):
         self.onground = level.on_platform(self, 0, 1)  # self.check_collision(0,1,level)
-        if self.onground:
-            print("on ground")
         #        key = pygame.key.get_pressed()
         # self.image = self.stand_image
 
@@ -71,6 +69,9 @@ class Player(Sprite):
         self.pushed_by_platform(level)
         self.move(self.hsp, self.vsp, level)
         self.onground = level.on_platform(self, 0, 1)  # self.check_collision(0,1,level)
+        new_keywords_collected = level.keyword_collide(self)
+        if new_keywords_collected:
+            print(f"Collected {new_keywords_collected}")
 
     def walk_animation(self):
         if self.vsp != 0 and not self.onground:
