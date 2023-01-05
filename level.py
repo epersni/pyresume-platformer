@@ -4,7 +4,7 @@ import json
 
 
 class Level:
-    def __init__(self, level_width, level_start):
+    def __init__(self, level_width, level_height):
         self.frame_count = 0
         self.boxes = pygame.sprite.Group()
         self.vsp = 0
@@ -19,7 +19,7 @@ class Level:
                 for column, box in enumerate(line):
                     if box == "*":
                         self.boxes.add(
-                            Box(column * box_size, level_start - (row * box_size))
+                            Box(column * box_size, level_height - (row * box_size))
                         )
 
     def on_platform(self, sprite, dx, dy):
@@ -27,6 +27,9 @@ class Level:
         collide = pygame.sprite.spritecollideany(sprite, self.boxes)
         sprite.rect.move_ip([-dx, -dy])
         return collide
+
+    def set_fall_speed(self, vsp):
+        self.vsp = vsp
 
     def update(self):
         self._move_platforms_down(self.vsp)

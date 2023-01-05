@@ -16,43 +16,58 @@ class Player(Sprite):
         self.speed = 6
         self.jumpspeed = 20
         self.vsp = 0
+        self.hsp = 0
         self.gravity = 1
         self.min_jumpspeed = 4
         self.prev_key = pygame.key.get_pressed()
         self.jump_sound = pygame.mixer.Sound("./sounds/jump.wav")
         self.onground = False
 
-    def update(self, level):
-        hsp = 0
-        self.onground = level.on_platform(self, 0, 1)  # self.check_collision(0,1,level)
-        key = pygame.key.get_pressed()
-        if key[pygame.K_LEFT]:
-            self.facing_left = True
-            self.walk_animation()
-            hsp = -self.speed
-        elif key[pygame.K_RIGHT]:
-            self.facing_left = False
-            self.walk_animation()
-            hsp = self.speed
-        else:
-            self.image = self.stand_image
-
-        if key[pygame.K_SPACE] and self.onground:
+    def jump(self):
+        if self.onground:
             self.jump_sound.play()
             self.vsp = -self.jumpspeed
+            self.image = self.jump_image
+            if self.facing_left:
+                self.image = pygame.transform.flip(self.image, True, False)
 
-        if self.prev_key[pygame.K_SPACE] and not key[pygame.K_SPACE]:
-            if self.vsp < -self.min_jumpspeed:
-                self.vsp = -self.min_jumpspeed
+    def move_left(self):
+        self.facing_left = True
+        self.walk_animation()
+        self.hsp = -self.speed
 
-        self.prev_key = key
+    def move_right(self):
+        self.facing_left = False
+        self.walk_animation()
+        self.hsp = self.speed
+
+    def stand(self):
+        self.hsp = 0
+        if self.onground:
+            self.image = self.stand_image
+
+    def update(self, level):
+        self.onground = level.on_platform(self, 0, 1)  # self.check_collision(0,1,level)
+        if self.onground:
+            print("on ground")
+        #        key = pygame.key.get_pressed()
+        # self.image = self.stand_image
+
+        # if self.prev_key[pygame.K_SPACE] and not key[pygame.K_SPACE]:
+        #    if self.vsp < -self.min_jumpspeed:
+        #        self.vsp = -self.min_jumpspeed
+
+        # self.prev_key = key
 
         if self.vsp < 10 and not self.onground:
-            self.jump_animation()
             self.vsp += self.gravity
+            self.image = self.jump_image
+            if self.facing_left:
+                self.image = pygame.transform.flip(self.image, True, False)
 
         self.pushed_by_platform(level)
-        self.move(hsp, self.vsp, level)
+        self.move(self.hsp, self.vsp, level)
+        self.onground = level.on_platform(self, 0, 1)  # self.check_collision(0,1,level)
 
     def walk_animation(self):
         if self.vsp != 0 and not self.onground:
@@ -66,11 +81,6 @@ class Player(Sprite):
             self.animation_index += 1
         else:
             self.animation_index = 0
-
-    def jump_animation(self):
-        self.image = self.jump_image
-        if self.facing_left:
-            self.image = pygame.transform.flip(self.image, True, False)
 
     def pushed_by_platform(self, level):
         dy = 0
@@ -92,7 +102,7 @@ class Player(Sprite):
         while level.on_platform(self, 0, dy):
             dy -= numpy.sign(dy)
 
-        while level.on_platform(self, dx, dy if self.jumpspeed > 0 else 0):
+        while level.on_platform(self, dx, dy):
             dx -= numpy.sign(dx)
 
         while self.check_collision_with_wall(dx):
