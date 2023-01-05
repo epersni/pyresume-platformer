@@ -44,6 +44,9 @@ class Game:
             self.level_is_moving = True
             self.level.set_fall_speed(1)
 
+        if self.player.is_dead():
+            self.is_running = False
+
     def render(self):
         self.screen.fill(BACKGROUND_COLOR)
         self.background.draw(self.screen)

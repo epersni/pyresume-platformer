@@ -46,6 +46,9 @@ class Player(Sprite):
         if self.onground:
             self.image = self.stand_image
 
+    def is_dead(self):
+        return self.rect.bottom >= 600
+
     def update(self, level):
         self.onground = level.on_platform(self, 0, 1)  # self.check_collision(0,1,level)
         if self.onground:
