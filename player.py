@@ -21,7 +21,6 @@ class Player(Sprite):
         self.min_jumpspeed = 4
         self.prev_key = pygame.key.get_pressed()
         self.jump_sound = pygame.mixer.Sound("./sounds/jump.wav")
-        self.collect_sound = pygame.mixer.Sound("./sounds/collect.wav")
         self.onground = False
 
     def jump(self):
@@ -70,10 +69,6 @@ class Player(Sprite):
         self.pushed_by_platform(level)
         self.move(self.hsp, self.vsp, level)
         self.onground = level.on_platform(self, 0, 1)  # self.check_collision(0,1,level)
-        new_keywords_collected = level.keyword_collide(self)
-        if new_keywords_collected:
-            self.collect_sound.play()
-            print(f"Collected {new_keywords_collected}")
 
     def walk_animation(self):
         if self.vsp != 0 and not self.onground:

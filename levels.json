@@ -2,8 +2,6 @@
   "levels": [
     {
       "id": 1,
-      "frames_per_move": 60,
-      "pixels_per_move": 9,
       "keywords": [
         "apa",
         "bepa",
@@ -18,7 +16,7 @@
         "*           *",
         "*           *",
         "*           *",
-        "*f          *",
+        "* f         *",
         "******      *",
         "*           *",
         "*           *",

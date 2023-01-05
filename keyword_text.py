@@ -10,10 +10,10 @@ class KeywordText:
         self.text = self.font.render(text, True, GREEN, BLACK)
         self.rect = self.text.get_rect()
         pygame.draw.rect(self.text, GREEN, self.rect, 1)
-        self.rect.move_ip([startx,starty])
+        self.rect.move_ip([startx, starty])
 
     def draw(self, screen):
         screen.blit(self.text, self.rect)
 
     def move(self, dx, dy):
-        self.rect.move_ip([dx,dy])
+        self.rect.move_ip([dx, dy])

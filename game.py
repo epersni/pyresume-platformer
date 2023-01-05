@@ -37,7 +37,7 @@ class Game:
 
     def update(self):
         self.player.update(self.level)
-        self.level.update()
+        self.level.update(self.player)
         if (
             not self.level_is_moving and self.player.rect.top < SCREEN_HEIGHT / 2
         ):  # TODO: magic number
@@ -45,6 +45,9 @@ class Game:
             self.level.set_fall_speed(1)
 
         if self.player.is_dead():
+            self.is_running = False
+
+        if self.level.completed:
             self.is_running = False
 
     def render(self):
