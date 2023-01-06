@@ -1,6 +1,7 @@
 from player import Player
 from level import Level
 from background import Background
+from enum import Enum
 import pygame
 import json
 
@@ -9,6 +10,12 @@ SCREEN_HEIGHT = 600
 BACKGROUND_COLOR = (0, 0, 0)
 
 
+
+class GameState(Enum):
+    INTRO = 1
+    PLAY_LEVEL = 2
+    LEVEL_FINISHED = 3
+
 class Game:
     def __init__(self, levels_config):
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -16,10 +23,18 @@ class Game:
         self.music.play()
         self.background = Background(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.screen.fill(BACKGROUND_COLOR)
-        self.level = Level(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.player = Player(300, 500)  # TODO from level design
         self.is_running = True
         self.level_is_moving = False
+        self._set_level(0)
+    
+    def _set_level(self, stage_id):
+        with open("levels.json", "r") as levels_config:
+            levels_config = json.load(levels_config)
+            levels = levels_config["levels"]
+            self.level_config = levels[stage_id]
+            self.level = Level(self.level_config, SCREEN_WIDTH, SCREEN_HEIGHT)
+
 
     def handle_inputs(self):
         pygame.event.pump()
@@ -48,7 +63,10 @@ class Game:
             self.is_running = False
 
         if self.level.completed:
-            self.is_running = False
+            #self.is_running = False
+            self.player = Player(300, 500)  # TODO from level design
+            self.level_is_moving = False
+            self._set_level(1)
 
     def render(self):
         self.screen.fill(BACKGROUND_COLOR)

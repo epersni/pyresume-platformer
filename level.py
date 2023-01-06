@@ -6,7 +6,7 @@ import json
 
 
 class Level:
-    def __init__(self, level_width, level_height):
+    def __init__(self, config, level_width, level_height):
         self.frame_count = 0
         self.boxes = pygame.sprite.Group()
         self.available_keywords = []
@@ -16,34 +16,34 @@ class Level:
         self.collect_sound = pygame.mixer.Sound("./sounds/collect.wav")
         self.completed = False
 
-        with open("levels.json", "r") as levels_config:
-            levels_config = json.load(levels_config)
-            levels = levels_config["levels"]
-            self.level_config = levels[0]
-            boxes = self.level_config["boxes"]
-            box_size = Box.get_size()[0]
-            keyword_count = 0
-            for row, line in enumerate(reversed(boxes)):
-                for column, box in enumerate(line):
-                    if box == "*":
-                        self.boxes.add(
-                            Box(column * box_size, level_height - (row * box_size))
-                        )
-                    elif box == "f":
-                        self.key.rect.move_ip(
-                            column * box_size, level_height - (row * box_size)
-                        )
+        #with open("levels.json", "r") as levels_config:
+        #    levels_config = json.load(levels_config)
+        #    levels = levels_config["levels"]
+        self.level_config = config
+        boxes = self.level_config["boxes"]
+        box_size = Box.get_size()[0]
+        keyword_count = 0
+        for row, line in enumerate(reversed(boxes)):
+            for column, box in enumerate(line):
+                if box == "*":
+                    self.boxes.add(
+                        Box(column * box_size, level_height - (row * box_size))
+                    )
+                elif box == "f":
+                    self.key.rect.move_ip(
+                        column * box_size, level_height - (row * box_size)
+                    )
 
-                    elif box == "k":
-                        keyword = self.level_config["keywords"][keyword_count]
-                        keyword_count += 1
-                        self.available_keywords.append(
-                            KeywordText(
-                                keyword,
-                                column * box_size,
-                                level_height - (row * box_size),
-                            )
+                elif box == "k":
+                    keyword = self.level_config["keywords"][keyword_count]
+                    keyword_count += 1
+                    self.available_keywords.append(
+                        KeywordText(
+                            keyword,
+                            column * box_size,
+                            level_height - (row * box_size),
                         )
+                    )
 
     def on_platform(self, sprite, dx, dy):
         sprite.rect.move_ip([dx, dy])

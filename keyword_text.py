@@ -6,7 +6,7 @@ BLACK = (0, 0, 0)
 
 class KeywordText:
     def __init__(self, text, startx, starty):
-        self.font = pygame.font.SysFont("freesansbold", 72)
+        self.font = pygame.font.SysFont("freesansbold", 36)
         self.text = self.font.render(text, True, GREEN, BLACK)
         self.rect = self.text.get_rect()
         pygame.draw.rect(self.text, GREEN, self.rect, 1)
