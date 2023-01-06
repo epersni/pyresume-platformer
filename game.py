@@ -20,7 +20,7 @@ class Game:
     def __init__(self, levels_config):
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.music = pygame.mixer.Sound("./sounds/music.wav")
-        self.music.play()
+        self.music.play(loops=-1)
         self.background = Background(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.screen.fill(BACKGROUND_COLOR)
         self.player = Player(300, 500)  # TODO from level design
