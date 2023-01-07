@@ -33,12 +33,10 @@ class Player(Sprite):
 
     def move_left(self):
         self.facing_left = True
-        self.walk_animation()
         self.hsp = -self.speed
 
     def move_right(self):
         self.facing_left = False
-        self.walk_animation()
         self.hsp = self.speed
 
     def stand(self):
@@ -50,15 +48,12 @@ class Player(Sprite):
         return self.rect.bottom >= 600
 
     def update(self, level):
-        self.onground = level.on_platform(self, 0, 1)  # self.check_collision(0,1,level)
-        #        key = pygame.key.get_pressed()
-        # self.image = self.stand_image
+        self.onground = level.on_platform(self, 0, 1)
 
-        # if self.prev_key[pygame.K_SPACE] and not key[pygame.K_SPACE]:
-        #    if self.vsp < -self.min_jumpspeed:
-        #        self.vsp = -self.min_jumpspeed
-
-        # self.prev_key = key
+        if self.hsp != 0:
+            self.walk_animation()
+        else:
+            self.stand()
 
         if self.vsp < 10 and not self.onground:
             self.vsp += self.gravity
@@ -71,7 +66,7 @@ class Player(Sprite):
         self.onground = level.on_platform(self, 0, 1)  # self.check_collision(0,1,level)
 
     def walk_animation(self):
-        if self.vsp != 0 and not self.onground:
+        if self.vsp < 0 and not self.onground:
             return
 
         self.image = self.walk_cycle[self.animation_index]

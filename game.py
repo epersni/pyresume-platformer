@@ -40,33 +40,34 @@ class Game:
 
     def handle_inputs(self):
         pygame.event.pump()
-        key = pygame.key.get_pressed()
-        if key[pygame.K_ESCAPE]:
-            self.is_running = False
+        for event in pygame.event.get():
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_ESCAPE]:
+                self.is_running = False
 
-        if self.state is GameState.PLAY_LEVEL:
-            if key[pygame.K_SPACE]:
-                self.player.jump()
-            elif key[pygame.K_LEFT]:
-                self.player.move_left()
-            elif key[pygame.K_RIGHT]:
-                self.player.move_right()
-            else:
-                self.player.stand()
-        elif self.state is GameState.INTRO:
-            if key[pygame.K_RETURN]:
-                self.state = GameState.PLAY_LEVEL
-        elif self.state is GameState.SHOW_EXPERIENCES:
-            if key[pygame.K_RETURN]:
-                self.state = GameState.PLAY_LEVEL
-                next_level = self.experience_screen.selected_id
-                self.level = Level(
-                    self.config["levels"][next_level], SCREEN_WIDTH, SCREEN_HEIGHT
-                )
-            elif key[pygame.K_LEFT]:
-                self.experience_screen.show_prev()
-            elif key[pygame.K_RIGHT]:
-                self.experience_screen.show_next()
+            if self.state is GameState.PLAY_LEVEL:
+                if keys[pygame.K_SPACE]:
+                    self.player.jump()
+                elif keys[pygame.K_LEFT]:
+                    self.player.move_left()
+                elif keys[pygame.K_RIGHT]:
+                    self.player.move_right()
+                else:
+                    self.player.stand()
+            elif self.state is GameState.INTRO:
+                if keys[pygame.K_RETURN]:
+                    self.state = GameState.PLAY_LEVEL
+            elif self.state is GameState.SHOW_EXPERIENCES:
+                if keys[pygame.K_RETURN]:
+                    self.state = GameState.PLAY_LEVEL
+                    next_level = self.experience_screen.selected_id
+                    self.level = Level(
+                        self.config["levels"][next_level], SCREEN_WIDTH, SCREEN_HEIGHT
+                    )
+                elif event.type == pygame.KEYDOWN and keys[pygame.K_LEFT]:
+                    self.experience_screen.show_prev()
+                elif event.type == pygame.KEYDOWN and keys[pygame.K_RIGHT]:
+                    self.experience_screen.show_next()
 
     def update(self):
         if self.state is GameState.PLAY_LEVEL:
