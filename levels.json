@@ -1,4 +1,15 @@
 {
+  "intro":
+    {
+      "title": "Welcome to Nicklas Resume Platformer",
+      "body_text" : 
+      [
+        "Some very nice description here 01",
+        "Some very nice description here 02",
+        "Some very nice description here 03",
+        "Some very nice description here 01"
+      ]
+    },
   "levels": [
     {
       "id": 2,

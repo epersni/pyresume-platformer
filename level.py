@@ -16,7 +16,7 @@ class Level:
         self.collect_sound = pygame.mixer.Sound("./sounds/collect.wav")
         self.completed = False
 
-        #with open("levels.json", "r") as levels_config:
+        # with open("levels.json", "r") as levels_config:
         #    levels_config = json.load(levels_config)
         #    levels = levels_config["levels"]
         self.level_config = config
