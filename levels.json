@@ -12,7 +12,16 @@
     },
   "levels": [
     {
-      "id": 2,
+      "title": "Lead Software Developer",
+      "company": "Tangiamo Touch Technology",
+      "time_period": "2018-2020",
+      "description":
+        [
+          "Some very nice description here 01",
+          "Some very nice description here 02",
+          "Some very nice description here 03",
+          "Some very nice description here 04"
+        ],
       "keywords": [
         "c++",
         "python",
@@ -21,7 +30,7 @@
       ],
       "boxes": [
         "*           *",
-        "*         f *",
+        "*           *",
         "*       *****",
         "*     k     *",
         "*   ***     *",
@@ -31,12 +40,21 @@
         "*         k *",
         "*       *****",
         "*           *",
-        "*k          *",
+        "*k        f *",
         "*************"
       ]
     },
     {
-      "id": 1,
+      "title": "Software Developer",
+      "company": "Mitsubishi Electric Automotive",
+      "time_period": "2017-2018",
+      "description":
+        [
+          "Some very nice description here 01",
+          "Some very nice description here 02",
+          "Some very nice description here 03",
+          "Some very nice description here 01"
+        ],
       "keywords": [
         "apa",
         "bepa",
