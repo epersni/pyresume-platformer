@@ -25,7 +25,7 @@ class Game:
         self.music.play(loops=-1)
         self.background = Background(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.screen.fill(BACKGROUND_COLOR)
-        self.player = Player(300, 500)  # TODO from level design
+        self.player = Player()
         self.is_running = True
         self.level_is_moving = False
         self.state = GameState.INTRO
@@ -81,12 +81,12 @@ class Game:
 
             if self.player.is_dead():
                 self.state = GameState.SHOW_EXPERIENCES
-                self.player = Player(300, 500)  # TODO from level design
+                self.player = Player()
                 self.level_is_moving = False
 
             if self.level.completed:
                 self.state = GameState.SHOW_EXPERIENCES
-                self.player = Player(300, 500)  # TODO from level design
+                self.player = Player()
                 self.level_is_moving = False
                 self.experience_screen.unlock_selected()
 

@@ -4,7 +4,7 @@ import numpy
 
 
 class Player(Sprite):
-    def __init__(self, startx, starty):
+    def __init__(self, startx = 300, starty = 500):
         super().__init__("graphics/player_front.png", startx, starty)
         self.stand_image = self.image
         self.jump_image = pygame.image.load("graphics/player_jump.png")
