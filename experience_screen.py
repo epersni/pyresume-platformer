@@ -36,7 +36,7 @@ class ExperienceScreen:
     def show_next(self):
         self.selected_id += 1
         if self.selected_id >= len(self.config):
-            self.selected_id = len(self.config)-1
+            self.selected_id = len(self.config) - 1
 
     def show_prev(self):
         self.selected_id -= 1
@@ -51,7 +51,7 @@ class ExperienceScreen:
         experience = self.config[self.selected_id]
         if self.selected_id > 0:
             self._draw_left_arrow(screen)
-        if self.selected_id < len(self.config)-1:
+        if self.selected_id < len(self.config) - 1:
             self._draw_righ_arrow(screen)
         self._draw_period(screen)
         if "unlocked" in experience and experience["unlocked"]:
