@@ -56,7 +56,7 @@ class Game:
                     self.player.stand()
             elif self.state is GameState.INTRO:
                 if keys[pygame.K_RETURN]:
-                    self.state = GameState.PLAY_LEVEL
+                    self.state = GameState.SHOW_EXPERIENCES
             elif self.state is GameState.SHOW_EXPERIENCES:
                 if keys[pygame.K_RETURN]:
                     self.state = GameState.PLAY_LEVEL
@@ -64,6 +64,8 @@ class Game:
                     self.level = Level(
                         self.config["levels"][next_level], SCREEN_WIDTH, SCREEN_HEIGHT
                     )
+                elif event.type == pygame.KEYDOWN and keys[pygame.K_u]:
+                    self.experience_screen.unlock_selected()
                 elif event.type == pygame.KEYDOWN and keys[pygame.K_LEFT]:
                     self.experience_screen.show_prev()
                 elif event.type == pygame.KEYDOWN and keys[pygame.K_RIGHT]:
@@ -73,14 +75,14 @@ class Game:
         if self.state is GameState.PLAY_LEVEL:
             self.player.update(self.level)
             self.level.update(self.player)
-            if (
-                not self.level_is_moving and self.player.rect.top < SCREEN_HEIGHT / 2
-            ):  # TODO: magic number
+            if not self.level_is_moving and self.player.rect.top < SCREEN_HEIGHT / 2:
                 self.level_is_moving = True
                 self.level.set_fall_speed(1)
 
             if self.player.is_dead():
-                self.is_running = False
+                self.state = GameState.SHOW_EXPERIENCES
+                self.player = Player(300, 500)  # TODO from level design
+                self.level_is_moving = False
 
             if self.level.completed:
                 self.state = GameState.SHOW_EXPERIENCES
