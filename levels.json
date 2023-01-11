@@ -4,10 +4,13 @@
       "title": "Welcome to Nicklas Resume Platformer",
       "body_text" : 
       [
-        "Some very nice description here 01",
-        "Some very nice description here 02",
-        "Some very nice description here 03",
-        "Some very nice description here 01"
+        "To see my experiences you have to unlock them by playing",
+        "each experience as a level in this game.",
+        "",
+        "Jump [SPACE] on the platforms, collect all \"skills\" and find",
+        "the key to unlock the experience. Do not fall off the platforms!",
+        "",
+        "Press ENTER to go to the experience selection"
       ]
     },
   "levels": [
