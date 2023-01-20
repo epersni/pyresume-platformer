@@ -6,6 +6,9 @@ from intro_screen import IntroScreen
 from enum import Enum
 import pygame
 import json
+from pathlib import Path
+from importlib.resources import files
+import resources
 
 SCREEN_WIDTH = 800  # TODO: config?
 SCREEN_HEIGHT = 600  # TODO: config?
@@ -21,7 +24,7 @@ class GameState(Enum):
 class Game:
     def __init__(self, levels_config):
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        self.music = pygame.mixer.Sound("./sounds/music.wav")
+        self.music = pygame.mixer.Sound(files('resources')/ 'music.wav')
         self.music.play(loops=-1)
         self.background = Background(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.screen.fill(BACKGROUND_COLOR)
@@ -29,7 +32,7 @@ class Game:
         self.is_running = True
         self.level_is_moving = False
         self.state = GameState.INTRO
-        with open("levels.json", "r") as levels_config:
+        with open(files('resources')/"levels.json", "r", encoding='utf-8') as levels_config:
             self.config = json.load(levels_config)
         self.intro_screen = IntroScreen(self.config["intro"])
         self.experience_screen = ExperienceScreen(self.config["levels"])

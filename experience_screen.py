@@ -1,5 +1,7 @@
 from sprite import Sprite
 import pygame
+from importlib.resources import files
+import resources
 
 GREEN = (130, 190, 130)
 WHITE = (255, 255, 255)
@@ -63,11 +65,11 @@ class ExperienceScreen:
             self._draw_locked_experience(screen)
 
     def _draw_righ_arrow(self, screen):
-        arrow = Sprite("graphics/arrow_right.png", ARROW_RIGHT_X, ARROW_Y)
+        arrow = Sprite(files('resources')/"arrow_right.png", ARROW_RIGHT_X, ARROW_Y)
         arrow.draw(screen)
 
     def _draw_left_arrow(self, screen):
-        arrow = Sprite("graphics/arrow_left.png", ARROW_LEFT_X, ARROW_Y)
+        arrow = Sprite(files('resources')/"arrow_left.png", ARROW_LEFT_X, ARROW_Y)
         arrow.draw(screen)
 
     def _draw_locked_experience(self, screen):

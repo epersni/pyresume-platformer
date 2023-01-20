@@ -1,15 +1,17 @@
 from sprite import Sprite
 import pygame
 import numpy
+from importlib.resources import files
+import resources
 
 
 class Player(Sprite):
     def __init__(self, startx = 300, starty = 500):
-        super().__init__("graphics/player_front.png", startx, starty)
+        super().__init__(files('resources')/'player_front.png', startx, starty)
         self.stand_image = self.image
-        self.jump_image = pygame.image.load("graphics/player_jump.png")
+        self.jump_image = pygame.image.load(files('resources')/'player_jump.png')
         self.walk_cycle = [
-            pygame.image.load(f"graphics/player_walk{i:0>2}.png") for i in range(1, 12)
+            pygame.image.load(files('resources')/f"player_walk{i:0>2}.png") for i in range(1, 12)
         ]
         self.animation_index = 0
         self.facing_left = False
@@ -20,7 +22,7 @@ class Player(Sprite):
         self.gravity = 1
         self.min_jumpspeed = 4
         self.prev_key = pygame.key.get_pressed()
-        self.jump_sound = pygame.mixer.Sound("./sounds/jump.wav")
+        self.jump_sound = pygame.mixer.Sound(files('resources')/'jump.wav')
         self.onground = False
 
     def jump(self):

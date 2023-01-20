@@ -2,12 +2,14 @@ from sprite import Sprite
 
 import math
 import pygame
+import importlib.resources
+import resources
 
 
 class Background:
     def __init__(self, width, height):
         self.tile_group = pygame.sprite.Group()
-        self.image_path = "graphics/background.png"
+        self.image_path = importlib.resources.files('resources')/'background.png'
 
         image = pygame.image.load(self.image_path)
 

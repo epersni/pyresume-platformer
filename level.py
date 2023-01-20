@@ -3,6 +3,8 @@ from keyword_text import KeywordText
 from sprite import Sprite
 import pygame
 import json
+from importlib.resources import files
+import resources
 
 
 class Level:
@@ -11,14 +13,10 @@ class Level:
         self.boxes = pygame.sprite.Group()
         self.available_keywords = []
         self.vsp = 0
-        self.key = Sprite("graphics/key.png", 0, 0)
+        self.key = Sprite(files('resources')/"key.png", 0, 0)
         self.collected_keywords = []
-        self.collect_sound = pygame.mixer.Sound("./sounds/collect.wav")
+        self.collect_sound = pygame.mixer.Sound(files('resources')/"collect.wav")
         self.completed = False
-
-        # with open("levels.json", "r") as levels_config:
-        #    levels_config = json.load(levels_config)
-        #    levels = levels_config["levels"]
         self.level_config = config
         boxes = self.level_config["boxes"]
         box_size = Box.get_size()[0]

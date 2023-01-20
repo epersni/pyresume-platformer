@@ -12,7 +12,7 @@ DESIRED_FPS = 60
 
 def main():
     pygame.init()
-
+      
     clock = pygame.time.Clock()
 
     game = Game("levels.json")
